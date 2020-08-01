@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .models import Book, Author, BookInstance, Genre, Language
+from django.views import generic
+from .models import Book, Author, BookInstance, Genre
 
 
 def index(request):
@@ -9,11 +10,21 @@ def index(request):
     num_instances_available = BookInstance.objects.filter(status__exact='a').count()
     num_authors = Author.objects.count()
 
-    genre = Genre.objects.all()
+    num_genre = Genre.objects.filter(name__contains='Historical'.lower()).count()
+    book = Book.objects.filter(title__contains='The'.lower()).count()
 
     return render(
         request,
         'index.html',
         context={'num_books': num_books, 'num_instances': num_instances,
-                 'num_instances_available': num_instances_available, 'num_authors': num_authors, 'genre': genre}
+                 'num_instances_available': num_instances_available, 'num_authors': num_authors, 'num_genre': num_genre,
+                 'book': book}
     )
+
+
+class BookListView(generic.ListView):
+    model = Book
+
+
+class BookDetailView(generic.DetailView):
+    model = Book
