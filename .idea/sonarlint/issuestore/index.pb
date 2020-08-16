@@ -45,3 +45,13 @@ Z
 *catalog/templates/catalog/author_list.html,0\f\0f826f3132922491708e329b28a0ecd7544b5a6e
 Z
 *catalog/templates/catalog/author_form.html,9\7\977a8bf3fb872f2b497178ad9b59939ee90f7fa6
+\
+,catalog/templates/catalog/author_detail.html,b\1\b1cc3f21cdf894b3c6679bcd764cbf0b50a414c1
+I
+catalog/tests/__init__.py,9\2\9266605220d81f02066a4be3f9fd0f3286af3d95
+K
+catalog/tests/test_views.py,d\7\d7c871d71dec25197bcbdbab25d76fa257848ce1
+K
+catalog/tests/test_forms.py,5\e\5e551e8b69d22d975053ce2dc19432115e4390ec
+L
+catalog/tests/test_models.py,a\b\ab0ee9f223155b1c293140be112cdcc84d4f250d
