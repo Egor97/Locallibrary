@@ -1,4 +1,6 @@
 from uuid import UUID
+
+from django.contrib.auth.models import User
 from django.test import TestCase
 from catalog.models import Author, Book, BookInstance, Genre, Language
 
@@ -162,7 +164,6 @@ class BookInstanceTestModel(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        Book.objects.create(title='Fans')
         BookInstance.objects.create(id=1)
 
     def test_bookinstance_pk(self):
@@ -185,7 +186,20 @@ class BookInstanceTestModel(TestCase):
         bookinstance = BookInstance.objects.get(id=1)
         self.assertEquals(bookinstance._meta.get_field('due_back').blank, True)
 
-    # TODO borrower
+    def test_borrower(self):
+        bookinstance = BookInstance.objects.get(id=1)
+        user1 = User.objects.create_user('Anna', "email@email.com", '1111')
+        user1.last_name = 'Krypa'
+
+        bookinstance.borrower = user1
+
+        self.assertEquals(bookinstance.borrower, user1)
+        self.assertEquals(bookinstance.borrower.last_name, 'Krypa')
+
+        excepted_field = bookinstance._meta.get_field('borrower')
+
+        self.assertEquals(excepted_field.null, True)
+        self.assertEquals(excepted_field.blank, True)
 
     def test_status_max_length(self):
         bookinstance = BookInstance.objects.get(id=1)
